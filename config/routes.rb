@@ -4,6 +4,7 @@ Growstuff::Application.routes.draw do
   resources :plant_parts
 
   devise_for :members, :controllers => { :registrations => "registrations", :passwords => "passwords" }
+  match 'members/:id' => 'members#destroy', :via => :delete
 
   resources :members 
 

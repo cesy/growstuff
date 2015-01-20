@@ -48,6 +48,14 @@ class MembersController < ApplicationController
     @member = Member.confirmed.find(params[:login_name])
     @followers = @member.followers.paginate(:page => params[:page])
   end
+  
+  def destroy
+    @member = Member.find(params[:id])
+
+    if @member.destroy
+      redirect_to root_url, notice: "Member deleted."
+    end
+  end
 
   private
 
