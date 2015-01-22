@@ -118,6 +118,7 @@ group :development, :test do
   gem 'capybara'                        # integration tests
   gem 'capybara-email'                  # integration tests for email
   gem 'poltergeist', '~> 1.5.1'         # for headless JS testing
+  gem 'selenium-webdriver'              # for popups, which poltergeist doesn't support
   gem 'i18n-tasks'                      # adds tests for finding missing and unused translations
 end
 
