@@ -4,6 +4,7 @@ class MembersController < ApplicationController
   skip_authorize_resource :only => :nearby
 
   after_action :expire_cache_fragments, :only => :create
+  before_action :check_password, :only => :destroy
 
   def index
     @sort = params[:sort]
@@ -49,7 +50,11 @@ class MembersController < ApplicationController
     @followers = @member.followers.paginate(:page => params[:page])
   end
   
-  def destroy
+  def check_password
+      validates :current_password, :presence => TRUE
+  end
+  
+  def mark_destroy
     @member = Member.find(params[:id])
     
     # move any of their crops to cropbot
@@ -81,8 +86,9 @@ class MembersController < ApplicationController
         post.save!
       end
     end
-
-    if @member.destroy
+    
+    Member.update(@member, deleted?: true)
+    if @member.save!
       redirect_to root_url, notice: "Member deleted."
     end
   end
