@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209105410) do
+ActiveRecord::Schema.define(version: 20150812171700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -275,8 +275,8 @@ ActiveRecord::Schema.define(version: 20150209105410) do
   add_index "harvests_photos", ["harvest_id", "photo_id"], name: "index_harvests_photos_on_harvest_id_and_photo_id", using: :btree
 
   create_table "members", force: true do |t|
-    t.string   "email",                   default: "",   null: false
-    t.string   "encrypted_password",      default: "",   null: false
+    t.string   "email",                   default: "",    null: false
+    t.string   "encrypted_password",      default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -306,6 +306,7 @@ ActiveRecord::Schema.define(version: 20150209105410) do
     t.integer  "plantings_count"
     t.boolean  "newsletter"
     t.boolean  "send_planting_reminder",  default: true
+    t.boolean  "deleted?",                default: false
   end
 
   add_index "members", ["confirmation_token"], name: "index_members_on_confirmation_token", unique: true, using: :btree
