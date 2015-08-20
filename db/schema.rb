@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(version: 20150812171700) do
     t.integer  "plantings_count"
     t.boolean  "newsletter"
     t.boolean  "send_planting_reminder",  default: true
-    t.boolean  "deleted?",                default: false
+    t.boolean  "deleted",                 default: false
   end
 
   add_index "members", ["confirmation_token"], name: "index_members_on_confirmation_token", unique: true, using: :btree
@@ -406,7 +406,6 @@ ActiveRecord::Schema.define(version: 20150812171700) do
     t.datetime "updated_at"
     t.string   "slug"
     t.integer  "forum_id"
-    t.integer  "parent_id"
   end
 
   add_index "posts", ["created_at", "author_id"], name: "index_posts_on_created_at_and_author_id", using: :btree
