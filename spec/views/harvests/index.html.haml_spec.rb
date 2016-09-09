@@ -29,13 +29,13 @@ describe "harvests/index" do
     harvests = WillPaginate::Collection.create(page, per_page, total_entries) do |pager|
       pager.replace([
         FactoryGirl.create(:harvest,
-          :crop => @tomato,
-          :owner => @member
+          crop: @tomato,
+          owner: @member
         ),
         FactoryGirl.create(:harvest,
-          :crop => @maize,
-          :plant_part => @pp,
-          :owner => @member
+          crop: @maize,
+          plant_part: @pp,
+          owner: @member
         )
       ])
     end
@@ -43,19 +43,11 @@ describe "harvests/index" do
     render
   end
 
-  it "renders a list of harvests" do
-    render
-    assert_select "tr>td", :text => @member.login_name
-    assert_select "tr>td", :text => @tomato.name
-    assert_select "tr>td", :text => @maize.name
-    assert_select "tr>td", :text => @pp.name
-  end
-
   it "provides data links" do
     render
     rendered.should have_content "The data on this page is available in the following formats:"
-    assert_select "a", :href => harvests_path(:format => 'csv')
-    assert_select "a", :href => harvests_path(:format => 'json')
+    assert_select "a", href: harvests_path(format: 'csv')
+    assert_select "a", href: harvests_path(format: 'json')
   end
 
   it "displays member's name in title" do

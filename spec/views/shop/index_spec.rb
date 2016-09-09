@@ -16,7 +16,7 @@
 
 require 'rails_helper'
 
-describe 'shop/index.html.haml', :type => "view" do
+describe 'shop/index.html.haml', type: "view" do
   before(:each) do
     @product1 = FactoryGirl.create(:product)
     @product2 = FactoryGirl.create(:product_with_recommended_price)
@@ -32,33 +32,33 @@ describe 'shop/index.html.haml', :type => "view" do
     end
 
     it 'shows products' do
-      assert_select("h2", :text => @product1.name)
+      assert_select("h2", text: @product1.name)
     end
 
-    it 'shows prices in AUD' do
-      rendered.should have_content '9.99 AUD'
+    it 'shows prices in configured currency' do
+      rendered.should have_content '9.99 %s' % Growstuff::Application.config.currency
     end
 
     it 'should contain an exchange rate link' do
       currency = Growstuff::Application.config.currency
-      assert_select("a[href=http://www.wolframalpha.com/input/?i=9.99+#{currency}]")
+      assert_select("a[href='http://www.wolframalpha.com/input/?i=9.99+#{currency}']")
     end
 
     it 'shows recommended price for products that have it' do
-      rendered.should have_content '12.00 AUD'
+      rendered.should have_content '12.00 %s' % Growstuff::Application.config.currency
     end
 
     it 'should contain an exchange rate link for recommended price' do
       currency = Growstuff::Application.config.currency
-      assert_select("a[href=http://www.wolframalpha.com/input/?i=12.00+#{currency}]")
+      assert_select("a[href='http://www.wolframalpha.com/input/?i=12.00+#{currency}']")
     end
 
     it 'displays the order form' do
-      assert_select "form", :count => 2
+      assert_select "form", count: 2
     end
 
     it 'renders markdown in product descriptions' do
-      assert_select "em", :text => 'hurrah', :count => 2
+      assert_select "em", text: 'hurrah', count: 2
     end
   end
 

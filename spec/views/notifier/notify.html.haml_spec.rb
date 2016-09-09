@@ -16,11 +16,12 @@
 
 require 'rails_helper'
 
-describe 'notifier/notify.html.haml', :type => "view" do
+describe 'notifier/notify.html.haml', type: "view" do
 
   before(:each) do
     @notification = FactoryGirl.create(:notification)
     @reply_link = "http://example.com"
+    @signed_message = "EncryptedMessage"
     assign(:reply_link, @reply_link)
     render
   end
@@ -35,17 +36,17 @@ describe 'notifier/notify.html.haml', :type => "view" do
   end
 
   it 'should include a reply link' do
-    assert_select "a[href=#{@reply_link}]", :text => /Reply/
+    assert_select "a[href='#{@reply_link}']", text: /Reply/
   end
 
   it 'should contain a link to your inbox' do
-    assert_select "a[href*=notifications]"
+    assert_select "a[href*='notifications']"
   end
 
   it 'should have fully qualified URLs' do
     # lots of lovely fully qualified URLs
-    assert_select "a[href^=http]", { :minimum => 4 }
+    assert_select "a[href^='http']", { minimum: 4 }
     # no relative URLs starting with /
-    assert_select "a[href^=/]", { :count => 0 }
+    assert_select "a[href^='/']", { count: 0 }
   end
 end

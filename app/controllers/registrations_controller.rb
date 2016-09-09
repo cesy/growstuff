@@ -31,7 +31,7 @@ class RegistrationsController < Devise::RegistrationsController
       else
         set_flash_message :notice, :updated
         # Sign in the member bypassing validation in case their password changed
-        sign_in @member, :bypass => true
+        sign_in @member, bypass: true
         redirect_to edit_member_registration_path
       end
     else
