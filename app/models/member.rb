@@ -48,7 +48,7 @@ class Member < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable, :timeoutable
+         :confirmable, :lockable, :timeoutable, :omniauthable
 
   # set up geocoding
   geocoded_by :location
@@ -60,7 +60,7 @@ class Member < ActiveRecord::Base
   attr_accessor :login
 
   # Requires acceptance of the Terms of Service
-  validates_acceptance_of :tos_agreement, allow_nil: false,
+  validates_acceptance_of :tos_agreement, allow_nil: true,
     accept: true
 
   validates :login_name,
@@ -264,5 +264,4 @@ class Member < ActiveRecord::Base
   def get_follow(member)
     self.follows.where(followed_id: member.id).first if already_following?(member)
   end
-
 end

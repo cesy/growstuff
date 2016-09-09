@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 4.2.1'
 
 gem 'bundler', '>=1.1.5'
 
@@ -38,6 +38,7 @@ gem 'bootstrap-kaminari-views'     # bootstrap views for kaminari
 
 gem 'activemerchant'
 gem 'active_utils'
+gem 'sidekiq'
 
 # Markdown formatting for updates etc
 gem 'bluecloth'
@@ -64,6 +65,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-flickr', '>= 0.0.15'
+gem 'omniauth-facebook'
 
 # client for Elasticsearch. Elasticsearch is a flexible
 # and powerful, distributed, real-time search and analytics engine. 

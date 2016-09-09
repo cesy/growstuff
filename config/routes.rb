@@ -4,11 +4,12 @@ Growstuff::Application.routes.draw do
 
   resources :plant_parts
 
-  devise_for :members, controllers: { registrations: "registrations", passwords: "passwords", sessions: "sessions" }
+  devise_for :members, controllers: { registrations: "registrations", passwords: "passwords", sessions: "sessions", omniauth_callbacks: "omniauth_callbacks" }
   match 'members/:id' => 'members#delete', :via => :delete
   devise_scope :member do
     get '/members/unsubscribe/:message' => 'members#unsubscribe', :as => 'unsubscribe_member'
   end
+  match '/members/:id/finish_signup' => 'members#finish_signup', via: [:get, :patch], :as => :finish_signup
 
   resources :members
 
