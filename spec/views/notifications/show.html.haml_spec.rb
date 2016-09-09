@@ -19,7 +19,7 @@ require 'rails_helper'
 describe "notifications/show" do
   before(:each) do
     @member = FactoryGirl.create(:member)
-    @notification = FactoryGirl.create(:notification, :recipient => @member)
+    @notification = FactoryGirl.create(:notification, recipient: @member)
     assign(:notification, @notification)
     @reply_link = assign(:reply_link, new_notification_path)
     controller.stub(:current_user) { @member }
@@ -36,7 +36,7 @@ describe "notifications/show" do
   end
 
   it "includes a reply button" do
-    assert_select "a[href=#{@reply_link}]", "Reply"
+    assert_select "a", {href: @reply_link}, "Reply"
   end
 
 end

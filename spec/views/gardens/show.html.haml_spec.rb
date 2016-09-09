@@ -20,8 +20,8 @@ describe "gardens/show" do
   before(:each) do
     @owner    = FactoryGirl.create(:member)
     controller.stub(:current_user) { @owner }
-    @garden   = FactoryGirl.create(:garden, :owner => @owner)
-    @planting = FactoryGirl.create(:planting, :garden => @garden)
+    @garden   = FactoryGirl.create(:garden, owner: @owner)
+    @planting = FactoryGirl.create(:planting, garden: @garden)
     assign(:garden, @garden)
     render
   end
@@ -66,7 +66,7 @@ describe "gardens/show" do
     end
 
     it "links to the right crop in the planting link" do
-      assert_select("a[href=#{new_planting_path}?garden_id=#{@garden.id}]")
+      assert_select("a[href='#{new_planting_path}?garden_id=#{@garden.id}']")
     end
   end
 

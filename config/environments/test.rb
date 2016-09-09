@@ -15,7 +15,7 @@ Growstuff::Application.configure do
   config.cache_classes = false
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching
@@ -40,7 +40,7 @@ Growstuff::Application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   # Growstuff config
-  config.action_mailer.default_url_options = { :host => 'localhost:8080' }
+  config.action_mailer.default_url_options = { host: 'localhost:8080' }
 
   Growstuff::Application.configure do
     config.host = 'test.example.com'
@@ -49,6 +49,7 @@ Growstuff::Application.configure do
   end
 
   config.after_initialize do
+    require "active_merchant/ext/paypal_bogus_gateway"
     ActiveMerchant::Billing::Base.mode = :test
     ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalBogusGateway.new
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalBogusGateway.new
@@ -56,13 +57,27 @@ Growstuff::Application.configure do
 
 end
 
-Geocoder.configure(:lookup => :test)
+Geocoder.configure(lookup: :test)
 
 Geocoder::Lookup::Test.add_stub(
   "Amundsen-Scott Base, Antarctica", [
     {
       'latitude' =>         -90.0,
       'longitude' =>        0.0,
+    }
+  ]
+)
+
+Geocoder::Lookup::Test.add_stub(
+  "Philippines", [
+    {
+      'latitude'     => 12.7503486,
+      'longitude'    => 122.7312101,
+      'address'      => 'Manila, Mnl, Philippines',
+      'state'        => 'Manila',
+      'state_code'   => 'Mnl',
+      'country'      => 'Philippines',
+      'country_code' => 'PH'
     }
   ]
 )
@@ -91,3 +106,20 @@ Geocoder::Lookup::Test.add_stub( "Tatooine", [])
 Capybara.configure do |config|
   config.always_include_port = true
 end
+
+OmniAuth.config.test_mode = true
+# Fake the omniauth
+OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+  provider: 'facebook',
+  uid: '123545',
+  info: {
+    name: "John Testerson",
+    nickname: 'JohnnyT',
+    email: 'example.oauth.facebook@example.com',
+    image: 'http://findicons.com/files/icons/1072/face_avatars/300/i04.png'
+  },
+  credentials: {
+    token: "token",
+    secret: "donttell"
+  }
+})

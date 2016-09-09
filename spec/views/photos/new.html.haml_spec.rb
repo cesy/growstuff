@@ -27,11 +27,12 @@ describe "photos/new" do
       pager.replace([])
     end
     assign(:photos, photos)
-    assign(:flickr_auth, FactoryGirl.create(:flickr_authentication, :member => @member))
+    assign(:flickr_auth, FactoryGirl.create(:flickr_authentication, member: @member))
   end
 
   context "user has no photosets" do
     it "doesn't show a dropdown with sets from Flickr" do
+      render
       assert_select "select#set", false
     end
   end

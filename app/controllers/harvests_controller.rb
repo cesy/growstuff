@@ -1,5 +1,5 @@
 class HarvestsController < ApplicationController
-  before_filter :authenticate_member!, :except => [:index, :show]
+  before_filter :authenticate_member!, except: [:index, :show]
   load_and_authorize_resource
   
 
@@ -17,24 +17,13 @@ class HarvestsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { @harvests = @harvests.paginate(:page => params[:page]) }
+      format.html { @harvests = @harvests.paginate(page: params[:page]) }
       format.json { render json: @harvests }
       format.csv do
         specifics = (@owner ? "#{@owner.login_name}-" : @crop ? "#{@crop.name}-" : nil)
         @filename = "Growstuff-#{specifics}Harvests-#{Time.zone.now.to_s(:number)}.csv"
-        render :csv => @harvests
+        render csv: @harvests
       end
-    end
-  end
-
-  # GET /harvests/1
-  # GET /harvests/1.json
-  def show
-    @harvest = Harvest.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @harvest }
     end
   end
 

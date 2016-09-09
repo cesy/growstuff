@@ -24,29 +24,29 @@ describe "photos/show" do
 
   context "CC-licensed photo" do
     before(:each) do
-      @photo = assign(:photo, FactoryGirl.create(:photo, :owner => @member))
+      @photo = assign(:photo, FactoryGirl.create(:photo, owner: @member))
       render
     end
 
     it "shows the image" do
-      assert_select "img[src=#{@photo.fullsize_url}]"
+      assert_select "img[src='#{@photo.fullsize_url}']"
     end
 
     it "links to the owner's profile" do
-      assert_select "a", :href => @photo.owner
+      assert_select "a", href: @photo.owner
     end
 
     it "links to the CC license" do
-      assert_select "a", :href => @photo.license_url,
-        :text => @photo.license_name
+      assert_select "a", href: @photo.license_url,
+        text: @photo.license_name
     end
 
     it "shows a link to the original image" do
-      assert_select "a", :href => @photo.link_url, :text => "View on Flickr"
+      assert_select "a", href: @photo.link_url, text: "View on Flickr"
     end
 
     it "has a delete button" do
-      assert_select "a[href=#{photo_path(@photo)}]", 'Delete Photo'
+      assert_select "a[href='#{photo_path(@photo)}']", 'Delete Photo'
     end
   end
 
