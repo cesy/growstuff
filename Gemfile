@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.4'
 
-gem 'rails', '~> 4.2.8'
+gem 'rails', '~> 5.0'
 
 gem 'bundler', '>=1.1.5'
 
@@ -110,7 +110,7 @@ group :development do
   gem 'guard-rspec'
   gem 'letter_opener'
   gem 'pry'
-  gem 'quiet_assets'
+  # gem 'quiet_assets' doesn't work with Rails 5.0 - hasn't been updated since 2014
 end
 
 group :development, :test do
