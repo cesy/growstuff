@@ -577,7 +577,7 @@ DEPENDENCIES
   i18n-tasks
   jasmine
   jquery-rails
-  jquery-ui-rails (~> 5.0.2)
+  jquery-ui-rails
   js-routes
   kaminari
   leaflet-markercluster-rails
