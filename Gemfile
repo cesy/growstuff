@@ -135,6 +135,7 @@ group :development, :test do
   gem 'rubocop', '<= 0.47.1', require: false # Pin to rubocop (0.47.1) as 0.48.0 is buggy
   gem 'selenium-webdriver'
   gem 'webrat' # provides HTML matchers for view tests
+  gem 'rails-controller-testing'
 end
 
 group :test do
